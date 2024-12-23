@@ -1,0 +1,13 @@
+set(INCLUDES
+    client.hpp
+    computer_club_params.hpp
+    computer_club.hpp
+    day_time.hpp
+    event_factory.hpp
+    event_queue.hpp
+    event.hpp
+    incoming_events.hpp
+    outgoing_events.hpp
+    table.hpp
+    time.hpp
+)
