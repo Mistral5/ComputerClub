@@ -4,15 +4,14 @@
 #include "time.hpp"
 
 namespace computer_club {
-class Table {
- public:
-  Table();
-  ~Table();
+struct Table {
+  // Table();
+  // ~Table();
 
-  bool occupation_;
-  uint32_t rental_hours_;
-  Time rental_time_;
-  Time last_session_start_;
+  bool occupation;
+  uint32_t rental_hours;
+  Time rental_time;
+  Time last_session_start;
 };
 }  // namespace computer_club
 

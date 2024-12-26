@@ -4,26 +4,26 @@ using EventId = computer_club::OutgoingEventId;
 
 computer_club::ClientFromQueueLeft::ClientFromQueueLeft(const Time &time,
                                                         const Client &client)
-    : Event(time, EventId::ClientFromQueueLeft), client_(client) {}
+    : Event(time, EventId::ClientFromQueueLeft), client(client) {}
 
 computer_club::ClientFromQueueLeft::~ClientFromQueueLeft() = default;
 
 std::ostream &computer_club::ClientFromQueueLeft::Print(
     std::ostream &os) const {
-  return os << time_ << ' ' << id_ << ' ' << client_;
+  return os << time << ' ' << id << ' ' << client;
 }
 
 computer_club::ClientFromQueueSatDown::ClientFromQueueSatDown(
-    const Time &time, const Client &client, size_t table)
+    const Time &time, const Client &client, size_t table_id)
     : Event(time, EventId::ClientFromQueueSatDown),
-      client_(client),
-      table_(table) {}
+      client(client),
+      table_id(table_id) {}
 
 computer_club::ClientFromQueueSatDown::~ClientFromQueueSatDown() = default;
 
 std::ostream &computer_club::ClientFromQueueSatDown::Print(
     std::ostream &os) const {
-  return os << time_ << ' ' << id_ << ' ' << client_ << ' ' << table_;
+  return os << time << ' ' << id << ' ' << client << ' ' << table_id;
 }
 
 computer_club::Error::Error(const Time &time, const std::string &message)
@@ -32,5 +32,5 @@ computer_club::Error::Error(const Time &time, const std::string &message)
 computer_club::Error::~Error() = default;
 
 std::ostream &computer_club::Error::Print(std::ostream &os) const {
-  return os << time_ << ' ' << id_ << ' ' << message_;
+  return os << time << ' ' << id << ' ' << message_;
 }

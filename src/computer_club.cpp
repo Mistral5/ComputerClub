@@ -3,7 +3,7 @@
 computer_club::ComputerClub::ComputerClub(const ComputerClubParams &params)
     : params_(params) {
   tables_.resize(params.num_of_tables + 1);
-  tables_[0].occupation_ = true;
+  tables_[0].occupation = true;
   std::cout << params_.open_time << std::endl;
 }
 
@@ -20,7 +20,7 @@ void computer_club::ComputerClub::ProcessQueue(EventQueue &queue) {
 }
 
 void computer_club::ComputerClub::ProcessEvent(const Event &event) {
-  switch (event.id_) {
+  switch (event.id) {
     case IncomingEventId::ClientCameIn:
       Process(static_cast<const ClientCameIn &>(event));
       break;
@@ -41,32 +41,32 @@ void computer_club::ComputerClub::ProcessEvent(const Event &event) {
 void computer_club::ComputerClub::Process(const ClientCameIn &event) {
   std::cout << event << std::endl;
 
-  if (!IsOpenAt(event.time_)) {
-    Error outgoing(event.time_, "NotOpenYet");
+  if (!IsOpenAt(event.time)) {
+    Error outgoing(event.time, "NotOpenYet");
     std::cout << outgoing << std::endl;
     return;
   }
 
-  if (clients_.contains(event.client_)) {
-    Error outgoing(event.time_, "YouShallNotPass");
+  if (clients_.contains(event.client)) {
+    Error outgoing(event.time, "YouShallNotPass");
     std::cout << outgoing << std::endl;
     return;
   }
 
-  clients_[event.client_] = 0;
+  clients_[event.client] = 0;
 }
 
 void computer_club::ComputerClub::Process(const ClientSatDown &event) {
   std::cout << event << std::endl;
 
-  if (!clients_.contains(event.client_)) {
-    Error outgoing(event.time_, "ClientUnknown");
+  if (!clients_.contains(event.client)) {
+    Error outgoing(event.time, "ClientUnknown");
     std::cout << outgoing << std::endl;
     return;
   }
 
-  if (tables_[event.table_id_].occupation_) {
-    Error outgoing(event.time_, "PlaceIsBusy");
+  if (tables_[event.table_id].occupation) {
+    Error outgoing(event.time, "PlaceIsBusy");
     std::cout << outgoing << std::endl;
     return;
   }
@@ -74,30 +74,30 @@ void computer_club::ComputerClub::Process(const ClientSatDown &event) {
   // Так как, я не понял, что должно произойти когда клиент из очереди сядет за
   // стол не через ID 4. Я предполагаю, что так может сделать только верхний в
   // очереди клиент, и тихо удаляю его когда он садится за стол.
-  if (client_queue_.front() == event.client_) {
+  if (client_queue_.front() == event.client) {
     client_queue_.pop();
   }
 
   // desk clearing
-  if (clients_[event.client_]) {
-    ClearTable(event.client_, event.time_, event.table_id_);
+  if (clients_[event.client]) {
+    ClearTable(event.client, event.time, clients_[event.client]);
   }
 
   // table occupation
-  tables_[event.table_id_].occupation_ = true;
-  clients_[event.client_] = event.table_id_;
-  tables_[event.table_id_].last_session_start_ = event.time_;
+  tables_[event.table_id].occupation = true;
+  clients_[event.client] = event.table_id;
+  tables_[event.table_id].last_session_start = event.time;
 }
 
 bool TableIsFree(const computer_club::Table &table) {
-  return !table.occupation_;
+  return !table.occupation;
 }
 
 void computer_club::ComputerClub::Process(const ClientIsWaiting &event) {
   std::cout << event << std::endl;
 
-  if (!clients_.contains(event.client_)) {
-    Error outgoing(event.time_, "ClientUnknown");
+  if (!clients_.contains(event.client)) {
+    Error outgoing(event.time, "ClientUnknown");
     std::cout << outgoing << std::endl;
     return;
   }
@@ -105,34 +105,34 @@ void computer_club::ComputerClub::Process(const ClientIsWaiting &event) {
   auto result{std::find_if(begin(tables_), end(tables_), TableIsFree)};
 
   if (result != end(tables_)) {
-    Error outgoing(event.time_, "ICanWaitNoLonger!");
+    Error outgoing(event.time, "ICanWaitNoLonger!");
     std::cout << outgoing << std::endl;
   }
 
   if (clients_.size() > tables_.size()) {
-    ClientFromQueueLeft outgoing(event.time_, event.client_);
+    ClientFromQueueLeft outgoing(event.time, event.client);
     std::cout << outgoing << std::endl;
     return;
   }
 
-  client_queue_.push(event.client_);
+  client_queue_.push(event.client);
 }
 
 void computer_club::ComputerClub::Process(const ClientLeft &event) {
   std::cout << event << std::endl;
 
-  TableId curr_table = clients_[event.client_];
+  TableId curr_table = clients_[event.client];
 
-  if (!clients_.contains(event.client_)) {
-    Error outgoing(event.time_, "ClientUnknown");
+  if (!clients_.contains(event.client)) {
+    Error outgoing(event.time, "ClientUnknown");
     std::cout << outgoing << std::endl;
     return;
   }
 
   // desk clearing
-  ClearTable(event.client_, event.time_, curr_table);
+  ClearTable(event.client, event.time, curr_table);
 
-  clients_.erase(event.client_);
+  clients_.erase(event.client);
 
   if (client_queue_.empty()) {
     return;
@@ -141,13 +141,13 @@ void computer_club::ComputerClub::Process(const ClientLeft &event) {
   Client client_from_queue = client_queue_.front();
   client_queue_.pop();
 
-  ClientFromQueueSatDown ongoing(event.time_, client_from_queue, curr_table);
+  ClientFromQueueSatDown ongoing(event.time, client_from_queue, curr_table);
   std::cout << ongoing << std::endl;
 
   // table occupation
-  tables_[curr_table].occupation_ = true;
+  tables_[curr_table].occupation = true;
   clients_[client_from_queue] = curr_table;
-  tables_[curr_table].last_session_start_ = event.time_;
+  tables_[curr_table].last_session_start = event.time;
 }
 
 void computer_club::ComputerClub::KickEveryone() {
@@ -170,18 +170,20 @@ void computer_club::ComputerClub::ClearTable(const Client &client,
                                              TableId table_id) {
   Table &table = tables_[table_id];
 
-  table.rental_hours_ +=
-      table.last_session_start_.distanceTo(time).getHoursRoundedUp();
-  table.rental_time_ += table.last_session_start_.distanceTo(time);
-  table.occupation_ = false;
+  table.rental_hours +=
+      table.last_session_start.distanceTo(time).getHoursRoundedUp();
+  table.rental_time += table.last_session_start.distanceTo(time);
+  table.occupation = false;
 }
 
 void computer_club::ComputerClub::TakeTable() {}
 
 void computer_club::ComputerClub::PrintStat() {
   for (TableId id = 1; id < tables_.size(); ++id) {
-    std::cout << id << ' ' << tables_[id].rental_hours_ * params_.hourly_fee
-              << ' ' << tables_[id].rental_time_ << std::endl;
+    if (tables_[id].rental_time) {
+      std::cout << id << ' ' << tables_[id].rental_hours * params_.hourly_fee
+                << ' ' << tables_[id].rental_time << std::endl;
+    }
   }
 }
 

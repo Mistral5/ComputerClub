@@ -13,20 +13,20 @@ namespace computer_club {
 class ComputerClubParams {
  public:
   ComputerClubParams(std::ifstream&);
-  ComputerClubParams(uint16_t, const Time&, const Time&, uint32_t);
+  ComputerClubParams(size_t, const Time&, const Time&, uint32_t);
   ~ComputerClubParams();
 
-  uint16_t num_of_tables;
+  size_t num_of_tables;
   Time open_time;
   Time close_time;
   uint32_t hourly_fee;
 
  private:
-  inline static const std::string str_end_{"\r?"};
-  inline static const std::regex table_num_{"\\d+" + str_end_};
-  inline static const std::regex operating_time_{Time::str_rule_ + ' ' +
-                                                 Time::str_rule_ + str_end_};
-  inline static const std::regex hourly_fee_{"\\d+" + str_end_};
+  inline static const std::string kStrEnd{"\r?"};
+  inline static const std::regex kTableNum{"\\d+" + kStrEnd};
+  inline static const std::regex kOperatingTime{Time::str_rule_ + ' ' +
+                                                Time::str_rule_ + kStrEnd};
+  inline static const std::regex kHourlyFee{"\\d+" + kStrEnd};
 };
 }  // namespace computer_club
 

@@ -27,7 +27,7 @@ class ClientCameIn : public Event {
 
   std::ostream &Print(std::ostream &os) const override;
 
-  Client client_;
+  Client client;
 };
 
 class ClientSatDown : public Event {
@@ -38,8 +38,8 @@ class ClientSatDown : public Event {
 
   std::ostream &Print(std::ostream &) const override;
 
-  Client client_;
-  size_t table_id_;
+  Client client;
+  size_t table_id;
 };
 
 class ClientIsWaiting : public Event {
@@ -50,7 +50,7 @@ class ClientIsWaiting : public Event {
 
   std::ostream &Print(std::ostream &) const override;
 
-  Client client_;
+  Client client;
 };
 
 class ClientLeft : public Event {
@@ -61,7 +61,7 @@ class ClientLeft : public Event {
 
   std::ostream &Print(std::ostream &) const override;
 
-  Client client_;
+  Client client;
 };
 
 }  // namespace computer_club

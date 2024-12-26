@@ -5,7 +5,7 @@ computer_club::ComputerClubParams::ComputerClubParams(std::ifstream& stream) {
   std::string str_table_num;
   std::getline(stream, str_table_num);
 
-  if (!regex_match(str_table_num, table_num_)) {
+  if (!regex_match(str_table_num, kTableNum)) {
     throw InvalidDataException(str_table_num);
   }
 
@@ -15,7 +15,7 @@ computer_club::ComputerClubParams::ComputerClubParams(std::ifstream& stream) {
   std::string str_operating_time;
   std::getline(stream, str_operating_time);
 
-  if (!regex_match(str_operating_time, operating_time_)) {
+  if (!regex_match(str_operating_time, kOperatingTime)) {
     throw InvalidDataException(str_operating_time);
   }
 
@@ -31,14 +31,14 @@ computer_club::ComputerClubParams::ComputerClubParams(std::ifstream& stream) {
   std::string str_hourly_fee;
   std::getline(stream, str_hourly_fee);
 
-  if (!regex_match(str_hourly_fee, hourly_fee_)) {
+  if (!regex_match(str_hourly_fee, kHourlyFee)) {
     throw InvalidDataException(str_hourly_fee);
   }
 
   hourly_fee = std::stoul(str_hourly_fee);
 }
 
-computer_club::ComputerClubParams::ComputerClubParams(uint16_t num_of_tables,
+computer_club::ComputerClubParams::ComputerClubParams(size_t num_of_tables,
                                                       const Time& open_time,
                                                       const Time& close_time,
                                                       uint32_t hourly_fee)

@@ -5,7 +5,6 @@
 #include <fstream>
 #include <vector>
 
-#include "client.hpp"
 #include "event.hpp"
 #include "event_factory.hpp"
 #include "exceptions.hpp"
@@ -14,21 +13,18 @@
 namespace computer_club {
 class EventQueue {
  public:
-  EventQueue(std::ifstream&);
+  EventQueue(std::ifstream&, const std::string&, size_t);
   ~EventQueue();
 
   std::vector<std::shared_ptr<Event>>::iterator begin();
   std::vector<std::shared_ptr<Event>>::iterator end();
 
-  std::shared_ptr<Event> const& operator[](int index) const;
-  size_t size() const;
+  std::shared_ptr<Event> const& operator[](int) const;
+  size_t Size() const;
 
  private:
-  inline static const std::regex rule_{Time::str_rule_ + " \\d " +
-                                       Client::str_rule_ + " ?\\d?\r?"};
+  const std::regex kRule;
   std::vector<std::shared_ptr<Event>> queue_;
-
-  Time prev_event_;
 };
 }  // namespace computer_club
 

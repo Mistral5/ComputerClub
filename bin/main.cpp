@@ -27,11 +27,13 @@ int main(int argc, char** argv) {
   }
 
   try {
-    computer_club::ComputerClubParams computer_club_params(test_stream);
+    computer_club::ComputerClubParams club_params(test_stream);
 
-    computer_club::EventQueue event_queue(test_stream);
+    computer_club::EventQueue event_queue(test_stream,
+                                          computer_club::Client::str_rule_,
+                                          club_params.num_of_tables);
 
-    computer_club::ComputerClub computer_club(computer_club_params);
+    computer_club::ComputerClub computer_club(club_params);
 
     computer_club.ProcessQueue(event_queue);
   } catch (const std::exception& e) {

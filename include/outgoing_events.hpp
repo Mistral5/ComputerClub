@@ -22,9 +22,9 @@ class ClientFromQueueLeft : public Event {
   ClientFromQueueLeft(const Time &, const Client &);
   ~ClientFromQueueLeft();
 
-  std::ostream &Print(std::ostream &os) const override;
+  std::ostream &Print(std::ostream &) const override;
 
-  Client client_;
+  Client client;
 };
 
 class ClientFromQueueSatDown : public Event {
@@ -32,10 +32,10 @@ class ClientFromQueueSatDown : public Event {
   ClientFromQueueSatDown(const Time &, const Client &, size_t);
   ~ClientFromQueueSatDown();
 
-  std::ostream &Print(std::ostream &os) const override;
+  std::ostream &Print(std::ostream &) const override;
 
-  Client client_;
-  size_t table_;
+  Client client;
+  size_t table_id;
 };
 
 class Error : public Event {
@@ -43,7 +43,7 @@ class Error : public Event {
   Error(const Time &, const std::string &);
   ~Error();
 
-  std::ostream &Print(std::ostream &os) const override;
+  std::ostream &Print(std::ostream &) const override;
 
   const std::string message_;
 };

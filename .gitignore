@@ -42,6 +42,7 @@ tmp/
 
 # Tests
 test_*.txt
+/test_data
 
 # Analyzers
 valgrind*.txt

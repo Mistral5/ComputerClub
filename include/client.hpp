@@ -18,12 +18,12 @@ class Client {
   friend std::ostream &operator<<(std::ostream &, const Client &);
   friend bool operator<(const Client &, const Client &);
 
-  bool name_is_valid(const std::string &);
+  bool NameIsValid(const std::string &);
 
-  inline static const std::string str_rule_{"(([0-9]*[a-z]*?_?-*)*)"};
+  inline static const std::string kStringRule{"(([0-9]*[a-z]*?_?-*)*)"};
 
  private:
-  inline static const std::regex rule_{str_rule_};
+  inline static const std::regex kRule{kStringRule};
   std::string name_;
 };
 

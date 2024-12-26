@@ -4,6 +4,7 @@
 
 #include "computer_club.hpp"
 #include "computer_club_params.hpp"
+#include "event_queue.hpp"
 #include "time.hpp"
 
 TEST(time, output_case) {

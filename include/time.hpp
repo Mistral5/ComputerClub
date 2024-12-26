@@ -23,7 +23,7 @@ class Time {
   Time(uint16_t minutes = 0);
 
   Time &operator=(const Time &);
-
+  operator bool() const;
   ~Time() = default;
 
   Time operator+(const Time &) const;

@@ -32,6 +32,8 @@ computer_club::Time &computer_club::Time::operator=(const Time &other) {
   return *this;
 }
 
+computer_club::Time::operator bool() const { return min_; }
+
 computer_club::Time computer_club::Time::distanceTo(const Time &other) const {
   if (other.min_ < min_) {
     return Time(kMinsInADay - min_ + other.min_);

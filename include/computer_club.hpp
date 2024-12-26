@@ -19,6 +19,8 @@
 
 namespace computer_club {
 
+using TableId = size_t;  // "0" if in a club, ">0" if at a table.
+
 class ComputerClub {
  public:
   ComputerClub(const ComputerClubParams &);
@@ -37,8 +39,6 @@ class ComputerClub {
   void PrintStat();
 
  private:
-  using TableId = size_t;  // "0" if in a club, ">0" if at a table.
-
   void KickEveryone();
   void ClearTable(const Client &, const Time &, TableId);
   void TakeTable();

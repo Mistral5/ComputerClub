@@ -19,8 +19,8 @@ class Event {
 
   virtual std::ostream& Print(std::ostream& os) const;
 
-  Time time_;
-  const size_t id_;
+  Time time;
+  size_t id;
 
  protected:
   Event(const Time&, size_t);
