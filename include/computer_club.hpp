@@ -41,7 +41,6 @@ class ComputerClub {
  private:
   void KickEveryone();
   void ClearTable(const Client &, const Time &, TableId);
-  void TakeTable();
 
   std::queue<Client> client_queue_;
   std::map<Client, TableId> clients_;

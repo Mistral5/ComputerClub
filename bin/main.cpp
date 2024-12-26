@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     computer_club::ComputerClubParams club_params(test_stream);
 
     computer_club::EventQueue event_queue(test_stream,
-                                          computer_club::Client::str_rule_,
+                                          computer_club::Client::kStringRule,
                                           club_params.num_of_tables);
 
     computer_club::ComputerClub computer_club(club_params);

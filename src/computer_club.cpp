@@ -176,8 +176,6 @@ void computer_club::ComputerClub::ClearTable(const Client &client,
   table.occupation = false;
 }
 
-void computer_club::ComputerClub::TakeTable() {}
-
 void computer_club::ComputerClub::PrintStat() {
   for (TableId id = 1; id < tables_.size(); ++id) {
     if (tables_[id].rental_time) {
