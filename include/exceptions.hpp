@@ -21,16 +21,16 @@ class InvalidDataException : public std::exception {
 class InvalidTimeDataException : public std::exception {
  public:
   explicit InvalidTimeDataException(uint16_t minutes)
-      : message_{"\"" + std::to_string(minutes) + "\" " + exc_msg_} {};
+      : message_{"\"" + std::to_string(minutes) + "\" " + kExcMsg} {};
 
   explicit InvalidTimeDataException(uint8_t hours, uint8_t minutes)
       : message_{"\"" + std::to_string(hours) + ":" + std::to_string(minutes) +
-                 "\" " + exc_msg_} {};
+                 "\" " + kExcMsg} {};
 
   const char* what() const throw() override { return message_.c_str(); }
 
  private:
-  inline static const std::string exc_msg_{"cannot be converted to Time type!"};
+  inline static const std::string kExcMsg{"cannot be converted to Time type!"};
   std::string message_;
 };
 }  // namespace computer_club

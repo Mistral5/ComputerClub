@@ -24,8 +24,8 @@ class ComputerClubParams {
  private:
   inline static const std::string kStrEnd{"\r?"};
   inline static const std::regex kTableNum{"\\d+" + kStrEnd};
-  inline static const std::regex kOperatingTime{Time::str_rule_ + ' ' +
-                                                Time::str_rule_ + kStrEnd};
+  inline static const std::regex kOperatingTime{Time::kStringRule + ' ' +
+                                                Time::kStringRule + kStrEnd};
   inline static const std::regex kHourlyFee{"\\d+" + kStrEnd};
 };
 }  // namespace computer_club

@@ -13,7 +13,7 @@
 namespace computer_club {
 class EventQueue {
  public:
-  EventQueue(std::ifstream&, const std::string&, size_t);
+  EventQueue(std::ifstream&, size_t);
   ~EventQueue();
 
   std::vector<std::shared_ptr<Event>>::iterator begin();

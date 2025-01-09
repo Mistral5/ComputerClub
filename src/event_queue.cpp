@@ -1,9 +1,7 @@
 #include "event_queue.hpp"
 
-computer_club::EventQueue::EventQueue(std::ifstream &stream,
-                                      const std::string &client_rule,
-                                      size_t tables_num)
-    : kRule(Time::str_rule_ + " \\d " + client_rule + " ?\\d?\r?") {
+computer_club::EventQueue::EventQueue(std::ifstream &stream, size_t tables_num)
+    : kRule(Time::kStringRule + " \\d " + Client::kStringRule + " ?\\d?\r?") {
   std::vector<std::string> input_args;
 
   while (!stream.eof()) {
@@ -14,7 +12,6 @@ computer_club::EventQueue::EventQueue(std::ifstream &stream,
     }
   }
 
-  Time prev_event(input_args[0].substr(0, 5));
   EventFactory factory;
 
   for (std::string str : input_args) {
@@ -34,12 +31,12 @@ computer_club::EventQueue::EventQueue(std::ifstream &stream,
       }
     }
 
-    if (prev_event > Time(elems[0])) {
+    std::shared_ptr<Event> curr = factory.Create(elems);
+
+    if ((*queue_.front()).time > (*curr).time) {
       throw InvalidDataException(str);
     }
-    prev_event = elems[0];
 
-    std::shared_ptr<Event> curr = factory.Create(elems);
     queue_.push_back(curr);
   }
 }

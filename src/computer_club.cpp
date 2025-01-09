@@ -178,10 +178,8 @@ void computer_club::ComputerClub::ClearTable(const Client &client,
 
 void computer_club::ComputerClub::PrintStat() {
   for (TableId id = 1; id < tables_.size(); ++id) {
-    if (tables_[id].rental_time) {
-      std::cout << id << ' ' << tables_[id].rental_hours * params_.hourly_fee
-                << ' ' << tables_[id].rental_time << std::endl;
-    }
+    std::cout << id << ' ' << tables_[id].rental_hours * params_.hourly_fee
+              << ' ' << tables_[id].rental_time << std::endl;
   }
 }
 

@@ -41,14 +41,15 @@ class Time {
   uint8_t getMinutes() const;
   std::pair<uint8_t, uint8_t> getBoth() const;
 
-  inline static const std::string str_rule_{"[0-2][0-9]:[0-5][0-9]"};
+  inline static const std::string kStringRule{"[0-2][0-9]:[0-5][0-9]"};
 
  private:
-  inline static const std::regex rule_{str_rule_};
+  inline static const std::regex kRule{kStringRule};
   uint16_t min_;
 };
 
 std::ostream &operator<<(std::ostream &, const Time &);
+
 }  // namespace computer_club
 
 #endif  // COMPUTERCLUB_INCLUDE_TIME_HPP_
